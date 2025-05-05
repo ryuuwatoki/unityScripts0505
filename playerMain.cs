@@ -52,6 +52,13 @@ public class playerMain : MonoBehaviour
             moveDirection = moveDirection.normalized;
             transform.position += (Vector3)(moveDirection * speed * Time.deltaTime);
         }
+
+        // 移動圖片跟著旋轉
+        if (moveDirection != Vector2.zero)
+        {
+            float angle = Mathf.Atan2(moveDirection.x, moveDirection.y) * Mathf.Rad2Deg;
+            transform.rotation = Quaternion.Euler(0, 0, -angle);
+        }
     }
 
 
