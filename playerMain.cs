@@ -2,27 +2,46 @@ using UnityEngine;
 
 public class playerMain : MonoBehaviour
 {
-    // 可在Inspector調整的參數
+
+
+    // 速度（スピード）| 速度
     public float speed = 3f;
-    public Vector2 initialDirection = Vector2.right;
-    // 轉向平滑度（越大越快，建議0.1~1之間）
-    [Range(0.01f, 1f)]
+
+
+    // 方向転換のスムーズさ（ターンスムーズネス）| 轉向平滑度（越大越快，建議0.1~1之間）
     public float turnSmoothness = 0.1f;
 
+
+    // 現在の移動方向（ムーブディレクション）| 當前移動方向
     private Vector2 moveDirection;
+
+
+    // 最後の方向（ラストディレクション）| 上一次方向
     private Vector2 lastDirection;
+
+
+    // 目標方向（ターゲットディレクション）| 目標方向
     private Vector2 targetDirection;
+
+
+    // 移動開始フラグ（ハズスターテッドムービング）| 是否已開始移動
     private bool hasStartedMoving = false;
 
-    // Start is called once before the first execution of Update after the MonoBehaviour is created
+
+
+
+
     void Start()
     {
-        moveDirection = initialDirection.normalized;
-        lastDirection = moveDirection;
-        targetDirection = moveDirection;
+        // 初始化為零向量，直到有輸入才開始移動
+        moveDirection = Vector2.zero;
+        lastDirection = Vector2.zero;
+        targetDirection = Vector2.zero;
     }
 
-    // Update is called once per frame
+
+
+
     void Update()
     {
         HandleInput();
@@ -35,10 +54,13 @@ public class playerMain : MonoBehaviour
         }
     }
 
+
+
+
     void HandleInput()
     {
+        // 入力方向（インプットディレクション）| 輸入方向
         Vector2 inputDir = Vector2.zero;
-        // 只支援上下左右鍵的八方向（不支援WASD）
         if (Input.GetKey(KeyCode.UpArrow))
             inputDir += Vector2.up;
         if (Input.GetKey(KeyCode.DownArrow))
@@ -52,17 +74,23 @@ public class playerMain : MonoBehaviour
         {
             if (!hasStartedMoving)
                 hasStartedMoving = true;
+
+            // 正規化（ノーマライズ）| 正規化
             inputDir = inputDir.normalized;
+
             // 檢查是否為180度掉頭
             if (inputDir != -lastDirection && inputDir != moveDirection)
             {
+                // 目標方向設定（ターゲットディレクションセット）| 設定目標方向
                 targetDirection = inputDir;
+                // 最後方向更新（ラストディレクションアップデート）| 更新最後方向
                 lastDirection = targetDirection;
             }
         }
         else
         {
             // 沒有輸入時，鎖定當前方向
+            // 目標方向維持（ターゲットディレクションキープ）| 維持目標方向
             targetDirection = moveDirection;
         }
     }
