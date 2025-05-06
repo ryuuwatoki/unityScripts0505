@@ -1,9 +1,12 @@
 using UnityEngine;
+using System.Collections.Generic;
 
 public class playerMain : MonoBehaviour
 {
 
     public Transform bodyPrefab;
+
+    public List<Transform> bodies = new List<Transform>();
 
     // 速度（スピード）| 速度
     [Header("スピード | 速度")]
@@ -43,6 +46,8 @@ public class playerMain : MonoBehaviour
         moveDirection = Vector2.zero;
         lastDirection = Vector2.zero;
         targetDirection = Vector2.zero;
+
+        bodies.Add(transform);
     }
 
 
@@ -115,8 +120,10 @@ public class playerMain : MonoBehaviour
     {
         if (collision.CompareTag("Food"))
         {
-            Instantiate(bodyPrefab);
+            // Instantiate(bodyPrefab);
             // Debug.Log("碰撞到食物" + collision);
+
+            bodies.Add(Instantiate(bodyPrefab));
 
         }
 
