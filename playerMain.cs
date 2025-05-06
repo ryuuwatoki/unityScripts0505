@@ -3,6 +3,7 @@ using UnityEngine;
 public class playerMain : MonoBehaviour
 {
 
+    public Transform bodyPrefab;
 
     // 速度（スピード）| 速度
     [Header("スピード | 速度")]
@@ -29,6 +30,8 @@ public class playerMain : MonoBehaviour
 
     // 移動開始フラグ（ハズスターテッドムービング）| 是否已開始移動
     private bool hasStartedMoving = false;
+
+
 
 
 
@@ -105,5 +108,15 @@ public class playerMain : MonoBehaviour
             // 目標方向維持（ターゲットディレクションキープ）| 維持目標方向
             targetDirection = moveDirection;
         }
+    }
+
+    //タグが "Food" の場合プレハブを生成 | 當碰撞隕石 標籤名"food" 啟用碰撞
+    private void OnTriggerEnter2D(Collider2D collision)
+    {
+        if (collision.CompareTag("Food"))
+        {
+            Instantiate(bodyPrefab);
+        }
+
     }
 }
