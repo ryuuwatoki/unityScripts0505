@@ -3,7 +3,7 @@ using System.Collections.Generic;
 
 public class playerMain : MonoBehaviour
 {
-
+    public GameUI gameUI; // 連接 GameUI 腳本
     public Transform bodyPrefab;
 
     public List<Transform> bodies = new List<Transform>();
@@ -142,6 +142,8 @@ public class playerMain : MonoBehaviour
             Transform newBody = Instantiate(bodyPrefab,
             bodies[bodies.Count - 1].position, Quaternion.identity);
             bodies.Add(newBody);
+
+            gameUI.AddScore();
         }
 
         
@@ -169,6 +171,8 @@ public class playerMain : MonoBehaviour
             // bodies[1].position = new Vector2(0, 0);
             positions.Clear();
             positions.Add(transform.position);
+
+            gameUI.RestScore();
         
     }
 }
