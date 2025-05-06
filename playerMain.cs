@@ -47,17 +47,18 @@ public class playerMain : MonoBehaviour
 
     void Start()
     {
+        ResetStage();
         // 初始化為零向量，直到有輸入才開始移動
-        moveDirection = Vector2.zero;
-        lastDirection = Vector2.zero;
-        targetDirection = Vector2.zero;
+        // moveDirection = Vector2.zero;
+        // lastDirection = Vector2.zero;
+        // targetDirection = Vector2.zero;
 
-        bodies.Add(transform);
-        positions.Add(transform.position); // 初始化時記錄主體位置
+        // bodies.Add(transform);
+        // positions.Add(transform.position); // 初始化時記錄主體位置
 
         // 新增：一開始就產生一個 body
-        Transform newBody = Instantiate(bodyPrefab, transform.position, Quaternion.identity);
-        bodies.Add(newBody);
+        // Transform newBody = Instantiate(bodyPrefab, transform.position, Quaternion.identity);
+        // bodies.Add(newBody);
     }
 
 
@@ -154,8 +155,15 @@ public class playerMain : MonoBehaviour
             bodies.Add(newBody);
         }
 
+        
+
         if (collision.CompareTag("Obstacle")){
             Debug.Log("game over");
+            ResetStage();
+        }
+    }
+
+    void ResetStage(){
             transform.position = new Vector2(0, 0);
             moveDirection = Vector2.up;      // 方向變回朝上
             targetDirection = Vector2.up;    // 目標方向也設為朝上
@@ -167,13 +175,11 @@ public class playerMain : MonoBehaviour
             }
             bodies.Clear();
             bodies.Add(transform);
-            // 先產生 newBody，再加入 bodies
             Transform newBody = Instantiate(bodyPrefab, transform.position, Quaternion.identity);
             bodies.Add(newBody);
-            bodies[1].position = new Vector2(0, 0);
-            // 清空歷史路徑
+            // bodies[1].position = new Vector2(0, 0);
             positions.Clear();
             positions.Add(transform.position);
-        }
+        
     }
 }
