@@ -34,6 +34,11 @@ public class playerMain : MonoBehaviour
     // 移動開始フラグ（ハズスターテッドムービング）| 是否已開始移動
     private bool hasStartedMoving = false;
 
+    // 新增：記錄主體歷史位置
+    private List<Vector3> positions = new List<Vector3>();
+    // 每個 body 節點之間的距離（可調整）
+    public float bodySpacing = 0.2f;
+
 
 
 
@@ -48,6 +53,7 @@ public class playerMain : MonoBehaviour
         targetDirection = Vector2.zero;
 
         bodies.Add(transform);
+        positions.Add(transform.position); // 初始化時記錄主體位置
     }
 
 
@@ -62,8 +68,26 @@ public class playerMain : MonoBehaviour
             moveDirection = Vector2.Lerp(moveDirection, targetDirection, turnSmoothness);
             moveDirection = moveDirection.normalized;
             transform.position += (Vector3)(moveDirection * speed * Time.deltaTime);
-            // 現在の移動パラメータを出力
-            // Debug.Log( "現在の移動パラメータ: " + $"({moveDirection.x * speed}, " + $"{moveDirection.y * speed})");
+        }
+
+        // 記錄主體位置
+        if (positions.Count == 0 || (positions[positions.Count - 1] - transform.position).sqrMagnitude > 0.0001f)
+        {
+            positions.Add(transform.position);
+        }
+
+        // 控制 positions 長度，避免無限增長
+        int maxPositions = Mathf.CeilToInt((bodies.Count + 1) * (1f / bodySpacing));
+        while (positions.Count > maxPositions)
+        {
+            positions.RemoveAt(0);
+        }
+
+        // 讓每個 body 跟隨主體過去的位置
+        for (int i = 1; i < bodies.Count; i++)
+        {
+            int index = Mathf.Max(positions.Count - 1 - Mathf.RoundToInt(i / bodySpacing), 0);
+            bodies[i].position = positions[index];
         }
 
         // 移動圖片跟著旋轉
@@ -120,12 +144,9 @@ public class playerMain : MonoBehaviour
     {
         if (collision.CompareTag("Food"))
         {
-            // Instantiate(bodyPrefab);
-            // Debug.Log("碰撞到食物" + collision);
-
-            bodies.Add(Instantiate(bodyPrefab));
-
+            // 新增 body 時，將其位置設為最後一個 body 的位置
+            Transform newBody = Instantiate(bodyPrefab, bodies[bodies.Count - 1].position, Quaternion.identity);
+            bodies.Add(newBody);
         }
-
     }
 }
