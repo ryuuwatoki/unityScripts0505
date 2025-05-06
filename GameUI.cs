@@ -23,10 +23,10 @@ public class GameUI : MonoBehaviour
 
     public void RestScore(){
         score = 0;
-        scoreText.text = score.ToString();
+        scoreText.text = $"score: {score}";
     }
     public void AddScore(int amount = 1) {
         score += amount;
-        scoreText.text = score.ToString();
+        scoreText.text = $"score: {score}";
     }
 }
