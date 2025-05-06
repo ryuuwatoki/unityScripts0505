@@ -22,5 +22,10 @@ public class MeteorPickup : MonoBehaviour
         // テスト用のリスポーン範囲
         // var b = MeteoriteArea.bounds;
         // Debug.Log($"{b.min.x}, {b.max.x}, {b.min.y}, {b.max.y}");
+
+        transform.position = new Vector2(
+            Random.Range(MeteoriteArea.bounds.min.x, MeteoriteArea.bounds.max.x),
+            Random.Range(MeteoriteArea.bounds.min.y, MeteoriteArea.bounds.max.y)
+        );
     }
 }
