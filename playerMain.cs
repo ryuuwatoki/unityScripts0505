@@ -145,7 +145,8 @@ public class playerMain : MonoBehaviour
         if (collision.CompareTag("Food"))
         {
             // 新增 body 時，將其位置設為最後一個 body 的位置
-            Transform newBody = Instantiate(bodyPrefab, bodies[bodies.Count - 1].position, Quaternion.identity);
+            Transform newBody = Instantiate(bodyPrefab,
+            bodies[bodies.Count - 1].position, Quaternion.identity);
             bodies.Add(newBody);
         }
     }
