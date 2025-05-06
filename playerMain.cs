@@ -48,17 +48,6 @@ public class playerMain : MonoBehaviour
     void Start()
     {
         ResetStage();
-        // 初始化為零向量，直到有輸入才開始移動
-        // moveDirection = Vector2.zero;
-        // lastDirection = Vector2.zero;
-        // targetDirection = Vector2.zero;
-
-        // bodies.Add(transform);
-        // positions.Add(transform.position); // 初始化時記錄主體位置
-
-        // 新增：一開始就產生一個 body
-        // Transform newBody = Instantiate(bodyPrefab, transform.position, Quaternion.identity);
-        // bodies.Add(newBody);
     }
 
 
