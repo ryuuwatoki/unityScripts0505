@@ -116,6 +116,8 @@ public class playerMain : MonoBehaviour
         if (collision.CompareTag("Food"))
         {
             Instantiate(bodyPrefab);
+            // Debug.Log("碰撞到食物" + collision);
+
         }
 
     }
