@@ -19,9 +19,8 @@ public class MeteorPickup : MonoBehaviour
 
     void OnTriggerEnter2D(Collider2D collision)
     {
-        Debug.Log( MeteoriteArea.bounds.min.x );
-        Debug.Log( MeteoriteArea.bounds.max.x );
-        Debug.Log( MeteoriteArea.bounds.min.y );
-        Debug.Log( MeteoriteArea.bounds.max.y );
+        // テスト用のリスポーン範囲
+        // var b = MeteoriteArea.bounds;
+        // Debug.Log($"{b.min.x}, {b.max.x}, {b.min.y}, {b.max.y}");
     }
 }
