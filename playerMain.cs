@@ -5,10 +5,13 @@ public class playerMain : MonoBehaviour
 
 
     // 速度（スピード）| 速度
+    [Header("スピード | 速度")]
     public float speed = 3f;
 
 
     // 方向転換のスムーズさ（ターンスムーズネス）| 轉向平滑度（越大越快，建議0.1~1之間）
+    [Header("転換のスムーズさ | 轉向平滑度")]
+    [Tooltip("値が 0 に近いほど少しずつ回転、1 で一気に90度回転。\n值越接近 0，每次轉角度越少；值為 1 時，一次轉 90 度。")]
     public float turnSmoothness = 0.1f;
 
 
@@ -51,6 +54,8 @@ public class playerMain : MonoBehaviour
             moveDirection = Vector2.Lerp(moveDirection, targetDirection, turnSmoothness);
             moveDirection = moveDirection.normalized;
             transform.position += (Vector3)(moveDirection * speed * Time.deltaTime);
+            // 現在の移動パラメータを出力
+            // Debug.Log( "現在の移動パラメータ: " + $"({moveDirection.x * speed}, " + $"{moveDirection.y * speed})");
         }
 
         // 移動圖片跟著旋轉
