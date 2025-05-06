@@ -9,6 +9,7 @@ public class SoundManager : MonoBehaviour
     public AudioSource boomAudio;
 
     public void PlayStartBgm(){
+        Debug.Log("StartBgm is playing");
         startBgmAudio.Play();
     }
 
@@ -24,6 +25,7 @@ public class SoundManager : MonoBehaviour
     private System.Collections.IEnumerator PlayStartBtnThenGameBgm()
     {
         startBtnAudio.Play();
+        StopStartBgm();
         yield return new WaitForSeconds(3f);
         gameBgmAudio.Play();
     }
@@ -59,7 +61,7 @@ public class SoundManager : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        PlayStartBgm();
     }
 
     // Update is called once per frame
