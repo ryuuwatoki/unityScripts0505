@@ -90,6 +90,7 @@ public class BlackHold : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!GameManager.playerHasMoved) return;
         transform.Rotate(0, 0, 360f * rotationSpeed * Time.deltaTime);
         transform.Translate(moveDir * moveSpeed * Time.deltaTime, Space.World);
 

@@ -14,6 +14,8 @@ public class BlackHoldBG : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
+        if (!GameManager.playerHasMoved) return;
+
         // 每秒旋轉的角度
         float rotationSpeed = 360f / secondsPerRotation;
         transform.Rotate(0, 0, rotationSpeed * Time.deltaTime);

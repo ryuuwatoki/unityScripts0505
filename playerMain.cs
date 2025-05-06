@@ -150,29 +150,34 @@ public class playerMain : MonoBehaviour
 
         if (collision.CompareTag("Obstacle")){
             Debug.Log("game over");
-            ResetStage();
+            GameManager gm = FindFirstObjectByType<GameManager>();
+            gm.OnplayerMDied();
+            gm.ResetAllObjectsPosition(); // 先重設所有物件位置
+            ResetStage(); // 再重設主角自己
         }
     }
 
-    void ResetStage(){
-            transform.position = new Vector2(0, 0);
-            moveDirection = Vector2.up;      // 方向變回朝上
-            targetDirection = Vector2.up;    // 目標方向也設為朝上
-            lastDirection = Vector2.up;
-            hasStartedMoving = false;
-            for (int i = 1; i < bodies.Count; i++)
-            {
-                Destroy(bodies[i].gameObject);
-            }
-            bodies.Clear();
-            bodies.Add(transform);
-            Transform newBody = Instantiate(bodyPrefab, transform.position, Quaternion.identity);
-            bodies.Add(newBody);
-            // bodies[1].position = new Vector2(0, 0);
-            positions.Clear();
-            positions.Add(transform.position);
+    public void ResetStage()
+    {
+        transform.position = new Vector2(0, 0);
+        moveDirection = Vector2.up;      // 方向變回朝上
+        targetDirection = Vector2.up;    // 目標方向也設為朝上
+        lastDirection = Vector2.up;
+        hasStartedMoving = false;
+        transform.rotation = Quaternion.Euler(0, 0, 0);
+        for (int i = 1; i < bodies.Count; i++)
+        {
+            Destroy(bodies[i].gameObject);
+        }
+        bodies.Clear();
+        bodies.Add(transform);
+        positions.Clear();
+        positions.Add(transform.position);
+    }
 
-            gameUI.RestScore();
-        
+    public void OnRestartButtonClicked()
+    {
+        gameUI.RestScore(); // 這裡歸零
+        // 其他重啟遊戲的邏輯
     }
 }

@@ -12,7 +12,7 @@ public class GameUI : MonoBehaviour
     // Start is called once before the first execution of Update after the MonoBehaviour is created
     void Start()
     {
-        
+        RestScore();
     }
 
     // Update is called once per frame
